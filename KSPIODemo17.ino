@@ -1,18 +1,19 @@
 //pins for LEDs
-#define GLED 5
-#define YLED 6
-#define RLED 7
-#define SASLED 11
+//#define GLED 5
+//#define YLED 6
+//#define RLED 7
+
+#define SASLED 13 // LED_BUILTIN
 #define RCSLED 12
-#define CG1LED 13
 
 //pins for input
-#define SASPIN 8
-#define RCSPIN 9
-#define CG1PIN 10
-#define THROTTLEPIN 0
+#define SASPIN 40
+#define RCSPIN 41
 
-#define THROTTLEDB 4 //Throttle axis deadband
+//#define CG1PIN 10
+//#define THROTTLEPIN 0
+//
+//#define THROTTLEDB 4 //Throttle axis deadband
 
 //Input enums
 #define SAS 7
@@ -68,21 +69,7 @@
 #define IDLETIMER 2000
 #define CONTROLREFRESH 25
 
-//warnings
-#define GWARN 9                  //9G Warning
-#define GCAUTION 5               //5G Caution
-#define FUELCAUTION 10.0         //10% Fuel Caution
-#define FUELWARN 5.0             //5% Fuel warning
-
-unsigned long deadtime, deadtimeOld, controlTime, controlTimeOld;
-unsigned long now;
-
-boolean Connected = false;
-
-byte caution = 0, warning = 0, id;
-
-struct VesselData
-{
+struct VesselData{
     byte id;                //1
     float AP;               //2
     float PE;               //3
@@ -152,8 +139,7 @@ struct VesselData
     int16_t NormalHeading;  //62 Heading Of the Prograde Vector;  see above for range;  (Pitch of the Heading Vector is always 0)
 };
 
-struct HandShakePacket
-{
+struct HandShakePacket{
   byte id;
   byte M1;
   byte M2;
@@ -181,6 +167,13 @@ struct ControlPacket {
 HandShakePacket HPacket;
 VesselData VData;
 ControlPacket CPacket;
+
+unsigned long deadtime, deadtimeOld, controlTime, controlTimeOld;
+unsigned long now;
+
+boolean Connected = false;
+
+byte id;
 
 void setup() {
   Serial.begin(38400);

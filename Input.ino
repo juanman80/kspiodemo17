@@ -15,7 +15,7 @@ int input() {
     }
 
     //We got some data, turn the green led on
-    digitalWrite(GLED,HIGH);
+//    digitalWrite(GLED,HIGH);
     Connected = true;
   }
   else

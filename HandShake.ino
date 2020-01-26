@@ -1,7 +1,7 @@
 // Handshake
 
 void Handshake(){
-  digitalWrite(GLED,HIGH); 
+  digitalWrite(SASLED,HIGH); 
 
   HPacket.id = 0;
   HPacket.M1 = 3;
@@ -11,4 +11,6 @@ void Handshake(){
   KSPBoardSendData(details(HPacket));
   Serial.println(F("KSP;0"));  
   delay(1000);
+  
+  digitalWrite(SASLED,LOW); 
 }

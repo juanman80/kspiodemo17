@@ -66,11 +66,11 @@ void DebugLF(){
   lcd.setCursor(0, 0);
   lcd.print("LF_Tot:");
   lcd.setCursor(8, 0);
-  lcd.print(VData.LiquidFuelTotS);
+  lcd.print(VData.LiquidFuelTot);
   lcd.setCursor(0, 1);
   lcd.print("LF_Cur:");
   lcd.setCursor(8, 1);
-  lcd.print(VData.LiquidFuelS);
+  lcd.print(VData.LiquidFuel);
 }
 
 void DebugSF(){
