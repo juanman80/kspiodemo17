@@ -7,8 +7,8 @@
 #define RCSLED 12
 
 //pins for input
-#define SASPIN 40
-#define RCSPIN 41
+#define SASPIN 46
+#define RCSPIN 47
 
 //#define CG1PIN 10
 //#define THROTTLEPIN 0
@@ -179,6 +179,7 @@ void setup() {
   Serial.begin(38400);
 
   initLEDS();
+  initColorLEDS();
   InitTxPackets();
   controlsInit();
   InitDebug();
@@ -190,5 +191,6 @@ void loop()
 {
   input();
   Debug();
+  runColorLEDS();
   output();
 }

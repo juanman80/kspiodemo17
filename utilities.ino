@@ -32,7 +32,6 @@ void LEDSAllOff() {
 //  digitalWrite(CG1LED,LOW);
 }
 
-
 void InitTxPackets() {
   HPacket.id = 0;  
   CPacket.id = 101;
