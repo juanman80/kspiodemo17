@@ -28,6 +28,28 @@ void InitDebug(){
   lcd.begin(16, 2);
 }
 
+void debugLedMatrix(byte lf, byte oxi, byte ec, byte mp){
+  lcd.clear();
+  
+  lcd.setCursor(0, 0);
+  lcd.print("lf: ");
+  lcd.setCursor(4, 0);
+  lcd.print(lf);
+  lcd.setCursor(8, 0);
+  lcd.print("oxi: ");
+  lcd.setCursor(12, 0);
+  lcd.print(oxi);
+
+  lcd.setCursor(0, 1);
+  lcd.print("ec: ");
+  lcd.setCursor(4, 1);
+  lcd.print(ec);
+  lcd.setCursor(8, 1);
+  lcd.print("mp: ");
+  lcd.setCursor(12, 1);
+  lcd.print(mp);
+}
+
 void Debug(){
   int seconds = millis() / 1000;
   byte rem = seconds % 6;

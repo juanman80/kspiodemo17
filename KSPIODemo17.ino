@@ -179,7 +179,7 @@ void setup() {
   Serial.begin(38400);
 
   initLEDS();
-  initColorLEDS();
+  InitLedMatrix();
   InitTxPackets();
   controlsInit();
   InitDebug();
@@ -190,7 +190,7 @@ void setup() {
 void loop()
 {
   input();
-  Debug();
-  runColorLEDS();
+//  Debug();
+  fuelLedMatrix();
   output();
 }
