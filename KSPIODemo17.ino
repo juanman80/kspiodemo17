@@ -1,3 +1,8 @@
+#include "Led.h"
+#include "JoystickTx.h"
+#include "Potentiometer.h"
+#include <LiquidCrystal.h>
+
 //pins for LEDs
 //#define GLED 5
 //#define YLED 6
@@ -6,9 +11,15 @@
 #define SASLED 13 // LED_BUILTIN
 #define RCSLED 12
 
-//pins for input
+//pins for digital input
 #define SASPIN 46
 #define RCSPIN 47
+#define JOYSTICK_TX_BUTTON 25
+
+// pins for analog input
+#define JOYSTICK_TX_AXIS_X 0
+#define JOYSTICK_TX_AXIS_Y 1
+#define SPEED_POTENCIOMETER_PIN 8
 
 //#define CG1PIN 10
 //#define THROTTLEPIN 0
@@ -168,6 +179,11 @@ HandShakePacket HPacket;
 VesselData VData;
 ControlPacket CPacket;
 
+JoystickTx joyTx;
+Potentiometer speedPot;
+Led SASled;
+LiquidCrystal lcd(53, 52, 51, 50, 49, 48);
+
 unsigned long deadtime, deadtimeOld, controlTime, controlTimeOld;
 unsigned long now;
 
@@ -181,18 +197,42 @@ void setup() {
   initLEDS();
   InitLedMatrix();
   InitTxPackets();
-  InitJoystickTx();
   controlsInit();
   InitDebug();
+
+  speedPot.init(SPEED_POTENCIOMETER_PIN);
+  SASled.init(SASLED);
+  joyTx.init(JOYSTICK_TX_AXIS_X, JOYSTICK_TX_AXIS_Y, JOYSTICK_TX_BUTTON);
 
   LEDSAllOff();
 }
 
 void loop()
 {
-  input();
+  input(SASled);
 //  Debug();
 //  fuelLedMatrix();
-  getJoystickTx();
+  // getJoystickTx();
+
+  if( joyTx.isPressed() ){
+    lcd.clear();
+    SASled.on();
+  }
+  SASled.off();
+  int milliseconds = millis() % 1000;
+  switch ( milliseconds ){
+    case 0:
+    case 250:
+    case 500:
+    case 750:
+      debugPotentiometerAndJoystickTx(
+        joyTx.readX(),
+        joyTx.readY(),
+        speedPot.readRaw(),
+        speedPot.readMap()
+      );
+      break;
+  }
+
   output();
 }

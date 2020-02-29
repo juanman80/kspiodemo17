@@ -21,11 +21,33 @@
 #include <LiquidCrystal.h>
 
 // initialize the library with the numbers of the interface pins
-LiquidCrystal lcd(53, 52, 51, 50, 49, 48);
+// LiquidCrystal lcd(53, 52, 51, 50, 49, 48);
 byte prevRem = 10;
 
 void InitDebug(){
   lcd.begin(16, 2);
+}
+
+void debugPotentiometerAndJoystickTx(int posX, int posY, int potRaw, int potMap){
+  lcd.clear();
+  
+  lcd.setCursor(0, 0);
+  lcd.print("pX:");
+  lcd.setCursor(3, 0);
+  lcd.print(posX);
+  lcd.setCursor(9, 0);
+  lcd.print("pR:");
+  lcd.setCursor(12, 0);
+  lcd.print(potRaw);
+
+  lcd.setCursor(0, 1);
+  lcd.print("pY:");
+  lcd.setCursor(3, 1);
+  lcd.print(posY);
+  lcd.setCursor(9, 1);
+  lcd.print("pM:");
+  lcd.setCursor(12, 1);
+  lcd.print(potMap);
 }
 
 void debugJoystickTx(int posX, int posY, int convX, int convY){
