@@ -1,3 +1,4 @@
+#include "Button.h"
 #include "JoystickAxis.h"
 
 // Arduino pin numbers
@@ -5,13 +6,12 @@ const int JoystickTxSwitch = 25; // digital pin connected to switch output
 const int JoystickTxAxisX = 0; // analog pin connected to X output
 const int JoystickTxAxisY = 1; // analog pin connected to Y output
 
+Button button1(JoystickTxSwitch);
 JoystickAxis axisX(JoystickTxAxisX);
 JoystickAxis axisY(JoystickTxAxisY);
 
 void InitJoystickTx() {
-  pinMode(JoystickTxSwitch, INPUT_PULLUP);
-  // digitalWrite(JoystickTxSwitch, HIGH);
-
+  button1.init();
   axisX.init();
   axisY.init();
 }
@@ -43,7 +43,7 @@ void getJoystickTx(){
       );
       break;
   }
-  if( digitalRead(JoystickTxSwitch) == LOW ){
+  if( button1.isPressed() ){
     lcd.clear();
   }
 }
