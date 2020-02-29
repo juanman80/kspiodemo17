@@ -1,47 +1,19 @@
+#include "JoystickAxis.h"
+
 // Arduino pin numbers
 const int JoystickTxSwitch = 25; // digital pin connected to switch output
 const int JoystickTxAxisX = 0; // analog pin connected to X output
 const int JoystickTxAxisY = 1; // analog pin connected to Y output
 
-const byte deadZone = 2;
-
-int JoystickTxAxisXMin;
-int JoystickTxAxisXMax;
-int JoystickTxAxisXRest;
-int JoystickTxAxisYMin;
-int JoystickTxAxisYMax;
-int JoystickTxAxisYRest;
+JoystickAxis axisX(JoystickTxAxisX);
+JoystickAxis axisY(JoystickTxAxisY);
 
 void InitJoystickTx() {
-  pinMode(JoystickTxSwitch, INPUT);
-  digitalWrite(JoystickTxSwitch, HIGH);
-  
-  JoystickTxAxisXMin=500;
-  JoystickTxAxisXMax=500;
-  JoystickTxAxisYMin=500;
-  JoystickTxAxisYMax=500;
+  pinMode(JoystickTxSwitch, INPUT_PULLUP);
+  // digitalWrite(JoystickTxSwitch, HIGH);
 
-  JoystickTxAxisXRest = analogRead(JoystickTxAxisX);
-  JoystickTxAxisYRest = analogRead(JoystickTxAxisY);
-}
-
-void calibrateAxis(int pos, int &pmin, int &pmax){
-  if ( pos < pmin ){
-    pmin = pos;
-  }
-
-  if ( pos > pmax ){
-    pmax = pos;
-  }
-}
-
-int mapAxis(int pos, int rest, int pmin, int pmax){
-  int deltaRest = rest - pos;
-  if ( abs(deltaRest) < deadZone ){
-    return 0;
-  }
-
-  return map(pos,pmin,pmax,-1000,1000);
+  axisX.init();
+  axisY.init();
 }
 
 void getJoystickTx(){
@@ -52,14 +24,17 @@ void getJoystickTx(){
     case 250:
     case 500:
     case 750:
-      int posX = analogRead(JoystickTxAxisX);
-      calibrateAxis(posX, JoystickTxAxisXMin, JoystickTxAxisXMax);
-      int convX = mapAxis(posX, JoystickTxAxisXRest, JoystickTxAxisXMin, JoystickTxAxisXMax);
+      int posX = axisX.readRaw();
+      int convX = axisX.readMap();
       
-      int posY = analogRead(JoystickTxAxisY);
-      calibrateAxis(posY, JoystickTxAxisYMin, JoystickTxAxisYMax);
-      int convY = mapAxis(posY, JoystickTxAxisYRest, JoystickTxAxisYMin, JoystickTxAxisYMax);
-      
+      int posY = axisY.readRaw();
+      int convY = axisY.readMap();
+      // debugJoystickTxAxis(
+      //   posX,
+      //   convX,
+      //   axisX.rest
+      // );
+
       debugJoystickTx(
         posX,
         posY,
@@ -67,5 +42,8 @@ void getJoystickTx(){
         convY
       );
       break;
+  }
+  if( digitalRead(JoystickTxSwitch) == LOW ){
+    lcd.clear();
   }
 }
