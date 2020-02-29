@@ -181,6 +181,7 @@ void setup() {
   initLEDS();
   InitLedMatrix();
   InitTxPackets();
+  InitJoystickTx();
   controlsInit();
   InitDebug();
 
@@ -191,6 +192,7 @@ void loop()
 {
   input();
 //  Debug();
-  fuelLedMatrix();
+//  fuelLedMatrix();
+  getJoystickTx();
   output();
 }

@@ -28,24 +28,65 @@ void InitDebug(){
   lcd.begin(16, 2);
 }
 
+void debugJoystickTx(int posX, int posY, int convX, int convY){
+  lcd.clear();
+  
+  lcd.setCursor(0, 0);
+  lcd.print("pX:");
+  lcd.setCursor(3, 0);
+  lcd.print(posX);
+  lcd.setCursor(8, 0);
+  lcd.print("cX:");
+  lcd.setCursor(11, 0);
+  lcd.print(convX);
+
+  lcd.setCursor(0, 1);
+  lcd.print("pY:");
+  lcd.setCursor(3, 1);
+  lcd.print(posY);
+  lcd.setCursor(8, 1);
+  lcd.print("cY:");
+  lcd.setCursor(11, 1);
+  lcd.print(convY);
+}
+
+void debugJoystickTxAxis(int pos, int conv, int mid){
+  lcd.clear();
+  
+  lcd.setCursor(0, 0);
+  lcd.print("p:");
+  lcd.setCursor(2, 0);
+  lcd.print(pos);
+  
+  lcd.setCursor(7, 0);
+  lcd.print("m:");
+  lcd.setCursor(9, 0);
+  lcd.print(mid);
+
+  lcd.setCursor(0, 1);
+  lcd.print("c:");
+  lcd.setCursor(2, 1);
+  lcd.print(conv);
+}
+
 void debugLedMatrix(byte lf, byte oxi, byte ec, byte mp){
   lcd.clear();
   
   lcd.setCursor(0, 0);
-  lcd.print("lf: ");
+  lcd.print("lf:");
   lcd.setCursor(4, 0);
   lcd.print(lf);
   lcd.setCursor(8, 0);
-  lcd.print("oxi: ");
+  lcd.print("oxi:");
   lcd.setCursor(12, 0);
   lcd.print(oxi);
 
   lcd.setCursor(0, 1);
-  lcd.print("ec: ");
+  lcd.print("ec:");
   lcd.setCursor(4, 1);
   lcd.print(ec);
   lcd.setCursor(8, 1);
-  lcd.print("mp: ");
+  lcd.print("mp:");
   lcd.setCursor(12, 1);
   lcd.print(mp);
 }
