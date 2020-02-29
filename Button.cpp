@@ -1,36 +1,34 @@
 #include "Button.h"
 
-Button::Button(byte pin) {
-  this->pin = pin;
-  lastReading = LOW;
+Button::Button() {
 }
 
-void Button::init() {
-  pinMode(pin, INPUT_PULLUP);
+void Button::init(byte button_pin) {
+  this->pin = button_pin;
+  this->lastReading = LOW;
+  pinMode(this->pin, INPUT_PULLUP);
   update();
 }
 
+//handles the debounce of the button directly
 void Button::update() {
-    // You can handle the debounce of the button directly
-    // in the class, so you don't have to think about it
-    // elsewhere in your code
-    byte newReading = digitalRead(pin);
-    
-    if (newReading != lastReading) {
-      lastDebounceTime = millis();
-    }
+  byte newReading = digitalRead(this->pin);
+  
+  if (newReading != this->lastReading) {
+    this->lastDebounceTime = millis();
+  }
 
-    if (millis() - lastDebounceTime > debounceDelay) {
-      // Update the 'state' attribute only if debounce is checked
-      state = newReading;
-    }
+  if (millis() - this->lastDebounceTime > this->debounceDelay) {
+    // Update the 'state' attribute only if debounce is checked
+    this->state = newReading;
+  }
 
-    lastReading = newReading;
+  this->lastReading = newReading;
 }
 
 byte Button::getState() {
   update();
-  return state;
+  return this->state;
 }
 
 bool Button::isPressed() {

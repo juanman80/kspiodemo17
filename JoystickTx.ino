@@ -6,14 +6,14 @@ const int JoystickTxSwitch = 25; // digital pin connected to switch output
 const int JoystickTxAxisX = 0; // analog pin connected to X output
 const int JoystickTxAxisY = 1; // analog pin connected to Y output
 
-Button button1(JoystickTxSwitch);
-JoystickAxis axisX(JoystickTxAxisX);
-JoystickAxis axisY(JoystickTxAxisY);
+Button button1;
+JoystickAxis axisX;
+JoystickAxis axisY;
 
 void InitJoystickTx() {
-  button1.init();
-  axisX.init();
-  axisY.init();
+  button1.init(JoystickTxSwitch);
+  axisX.init(JoystickTxAxisX);
+  axisY.init(JoystickTxAxisY);
 }
 
 void getJoystickTx(){

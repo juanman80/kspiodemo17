@@ -16,8 +16,8 @@ class JoystickAxis {
     void calibrateAxis(int pos);
     
   public:
-    JoystickAxis(byte joystick_pin);
-    void init();
+    JoystickAxis();
+    void init(byte axis_pin);
     int readRaw();
     int readMap();
 };
