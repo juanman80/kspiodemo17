@@ -1,22 +1,21 @@
-#include "Button.h"
-#include "JoystickAxis.h"
+#include "JoystickTx.h"
 
 // Arduino pin numbers
 const int JoystickTxSwitch = 25; // digital pin connected to switch output
 const int JoystickTxAxisX = 0; // analog pin connected to X output
 const int JoystickTxAxisY = 1; // analog pin connected to Y output
 
-Button button1;
-JoystickAxis axisX;
-JoystickAxis axisY;
+JoystickTx joyTx;
 
 void InitJoystickTx() {
-  button1.init(JoystickTxSwitch);
-  axisX.init(JoystickTxAxisX);
-  axisY.init(JoystickTxAxisY);
+  joyTx.init(JoystickTxAxisX, JoystickTxAxisY, JoystickTxSwitch);
 }
 
 void getJoystickTx(){
+  if( joyTx.isPressed() ){
+    lcd.clear();
+    return;
+  }
   // update every second
   int milliseconds = millis() % 1000;
   switch ( milliseconds ){
@@ -24,26 +23,12 @@ void getJoystickTx(){
     case 250:
     case 500:
     case 750:
-      int posX = axisX.readRaw();
-      int convX = axisX.readMap();
-      
-      int posY = axisY.readRaw();
-      int convY = axisY.readMap();
-      // debugJoystickTxAxis(
-      //   posX,
-      //   convX,
-      //   axisX.rest
-      // );
-
       debugJoystickTx(
-        posX,
-        posY,
-        convX,
-        convY
+        0,
+        0,
+        joyTx.readX(),
+        joyTx.readY()
       );
       break;
-  }
-  if( button1.isPressed() ){
-    lcd.clear();
   }
 }
