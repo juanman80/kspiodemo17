@@ -3,12 +3,12 @@
 /* PRIVATE */
 
 void JoystickAxis::calibrateAxis(int pos){
-  if ( pos < this->min ){
-    this->min = pos;
+  if ( pos < this->valMin ){
+    this->valMin = pos;
   }
 
-  if ( pos > this->max ){
-    this->max = pos;
+  if ( pos > this->valMax ){
+    this->valMax = pos;
   }
 }
 
@@ -17,10 +17,10 @@ JoystickAxis::JoystickAxis() {
 }
 
 void JoystickAxis::init(byte axis_pin) {
-  this->pin  = axis_pin;
-  this->min  = 500;
-  this->max  = 500;
-  this->rest = readRaw();
+  this->pin     = axis_pin;
+  this->valMin  = 500;
+  this->valMax  = 500;
+  this->valRest = readRaw();
 }
 
 int JoystickAxis::readRaw() {
@@ -31,10 +31,10 @@ int JoystickAxis::readMap() {
   int pos = readRaw();
   calibrateAxis(pos);
   
-  int deltaRest = this->rest - pos;
+  int deltaRest = this->valRest - pos;
   if ( abs(deltaRest) < this->deadZone ){
     return 0;
   }
 
-  return map(pos,this->min,this->max,-1000,1000);
+  return map(pos,this->valMin,this->valMax,-1000,1000);
 }

@@ -9,9 +9,9 @@ class JoystickAxis {
     byte pin;
     const byte deadZone = 5;
 
-    int min;
-    int max;
-    int rest;
+    int valMin;
+    int valMax;
+    int valRest;
 
     void calibrateAxis(int pos);
     

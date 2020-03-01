@@ -3,12 +3,12 @@
 /* PRIVATE */
 
 void Potentiometer::calibrateAxis(int pos){
-  if ( pos < this->min ){
-    this->min = pos;
+  if ( pos < this->valMin ){
+    this->valMin = pos;
   }
 
-  if ( pos > this->max ){
-    this->max = pos;
+  if ( pos > this->valMax ){
+    this->valMax = pos;
   }
 }
 
@@ -17,9 +17,9 @@ Potentiometer::Potentiometer() {
 }
 
 void Potentiometer::init(byte pot_pin) {
-  this->pin  = pot_pin;
-  this->min  = 500;
-  this->max  = 500;
+  this->pin     = pot_pin;
+  this->valMin  = 500;
+  this->valMax  = 500;
 }
 
 int Potentiometer::readRaw() {
@@ -30,5 +30,5 @@ int Potentiometer::readMap() {
   int pos = readRaw();
   calibrateAxis(pos);
 
-  return map(pos,this->min,this->max,0,1000);
+  return map(pos,this->valMin,this->valMax,0,1000);
 }

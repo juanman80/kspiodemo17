@@ -8,8 +8,8 @@ class Potentiometer {
   private:
     byte pin;
 
-    int min;
-    int max;
+    int valMin;
+    int valMax;
 
     void calibrateAxis(int pos);
     

@@ -32,7 +32,7 @@ void debugPotentiometerAndJoystickTx(int posX, int posY, int potRaw, int potMap)
   lcd.clear();
   
   lcd.setCursor(0, 0);
-  lcd.print("pX:");
+  lcd.print("tX:");
   lcd.setCursor(3, 0);
   lcd.print(posX);
   lcd.setCursor(9, 0);
@@ -41,7 +41,7 @@ void debugPotentiometerAndJoystickTx(int posX, int posY, int potRaw, int potMap)
   lcd.print(potRaw);
 
   lcd.setCursor(0, 1);
-  lcd.print("pY:");
+  lcd.print("tY:");
   lcd.setCursor(3, 1);
   lcd.print(posY);
   lcd.setCursor(9, 1);
