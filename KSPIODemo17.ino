@@ -1,4 +1,5 @@
 #include "Led.h"
+#include "JoystickRx.h"
 #include "JoystickTx.h"
 #include "Potentiometer.h"
 #include <LiquidCrystal.h>
@@ -15,10 +16,14 @@
 #define SASPIN 46
 #define RCSPIN 47
 #define JOYSTICK_TX_BUTTON 25
+#define JOYSTICK_RX_BUTTON 26
 
 // pins for analog input
 #define JOYSTICK_TX_AXIS_X 0
 #define JOYSTICK_TX_AXIS_Y 1
+#define JOYSTICK_RX_AXIS_X 5
+#define JOYSTICK_RX_AXIS_Y 6
+#define JOYSTICK_RX_AXIS_Z 7
 #define SPEED_POTENCIOMETER_PIN 8
 
 //#define CG1PIN 10
@@ -179,6 +184,7 @@ HandShakePacket HPacket;
 VesselData VData;
 ControlPacket CPacket;
 
+JoystickRx joyRx;
 JoystickTx joyTx;
 Potentiometer speedPot;
 Led SASled;
@@ -203,6 +209,7 @@ void setup() {
   speedPot.init(SPEED_POTENCIOMETER_PIN);
   SASled.init(SASLED);
   joyTx.init(JOYSTICK_TX_AXIS_X, JOYSTICK_TX_AXIS_Y, JOYSTICK_TX_BUTTON);
+  joyRx.init(JOYSTICK_RX_AXIS_X, JOYSTICK_RX_AXIS_Y, JOYSTICK_RX_AXIS_Z, JOYSTICK_RX_BUTTON);
 
   LEDSAllOff();
 }
@@ -214,7 +221,7 @@ void loop()
 //  fuelLedMatrix();
   // getJoystickTx();
 
-  if( joyTx.isPressed() ){
+  if( joyRx.isPressed() ){
     lcd.clear();
     SASled.on();
   }
@@ -225,11 +232,10 @@ void loop()
     case 250:
     case 500:
     case 750:
-      debugPotentiometerAndJoystickTx(
-        joyTx.readX(),
-        joyTx.readY(),
-        speedPot.readRaw(),
-        speedPot.readMap()
+      debugJoystickRx(
+        joyRx.readX(),
+        joyRx.readY(),
+        joyRx.readZ()
       );
       break;
   }

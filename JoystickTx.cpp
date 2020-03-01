@@ -1,5 +1,3 @@
-#include "Button.h"
-#include "JoystickAxis.h"
 #include "JoystickTx.h"
 
 JoystickTx::JoystickTx(){}
