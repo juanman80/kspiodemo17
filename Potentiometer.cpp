@@ -2,7 +2,7 @@
 
 /* PRIVATE */
 
-void Potentiometer::calibrateAxis(int pos){
+void Potentiometer::calibrate(int pos){
   if ( pos < this->valMin ){
     this->valMin = pos;
   }
@@ -10,6 +10,10 @@ void Potentiometer::calibrateAxis(int pos){
   if ( pos > this->valMax ){
     this->valMax = pos;
   }
+}
+
+int Potentiometer::doMap(int pos){
+  return map(pos,this->valMin,this->valMax,0,1000);
 }
 
 /* PUBLIC */
@@ -28,7 +32,6 @@ int Potentiometer::readRaw() {
 
 int Potentiometer::readMap() {
   int pos = readRaw();
-  calibrateAxis(pos);
-
-  return map(pos,this->valMin,this->valMax,0,1000);
+  calibrate(pos);
+  return doMap(pos);
 }

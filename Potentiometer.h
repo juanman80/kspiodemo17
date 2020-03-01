@@ -5,17 +5,18 @@
 
 class Potentiometer {
   
-  private:
+  protected:
     byte pin;
 
     int valMin;
     int valMax;
 
-    void calibrateAxis(int pos);
+    void calibrate(int pos);
+    virtual int doMap(int pos);
     
   public:
     Potentiometer();
-    void init(byte pot_pin);
+    virtual void init(byte pot_pin);
     int readRaw();
     int readMap();
 };
