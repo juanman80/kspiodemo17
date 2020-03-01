@@ -15,7 +15,7 @@ class JoystickTx {
   public:
     JoystickTx();
 
-    void init(byte axisX, byte axisY, byte button1);
+    virtual void init(byte axisX, byte axisY, byte button1);
     int readX();
     int readY();
     bool isPressed();
