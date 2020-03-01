@@ -1,7 +1,9 @@
+#include "Led.h"
+
 // Handshake
 
-void Handshake(){
-  digitalWrite(SASLED,HIGH); 
+void Handshake(Led warning_led){
+  warning_led.on(); 
 
   HPacket.id = 0;
   HPacket.M1 = 3;
@@ -12,5 +14,5 @@ void Handshake(){
   Serial.println(F("KSP;0"));  
   delay(1000);
   
-  digitalWrite(SASLED,LOW); 
+  warning_led.off(); 
 }

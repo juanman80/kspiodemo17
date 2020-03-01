@@ -2,24 +2,19 @@
 #define MY_JOYSTICK_AXIS_H
 
 #include <Arduino.h>
+#include "Potentiometer.h"
 
-class JoystickAxis {
+class JoystickAxis: public Potentiometer {
   
-  private:
-    byte pin;
+  protected:
     const byte deadZone = 5;
+    int valRest;
 
-    int min;
-    int max;
-    int rest;
-
-    void calibrateAxis(int pos);
+    int doMap(int pos);
     
   public:
     JoystickAxis();
     void init(byte axis_pin);
-    int readRaw();
-    int readMap();
 };
 
 #endif

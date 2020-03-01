@@ -1,5 +1,9 @@
-void Indicators() {
-  digitalWrite(SASLED,ControlStatus(AGSAS));
+void Indicators(Led SASLed) {
+  if ( ControlStatus(AGSAS) ){
+    SASLed.on();
+  } else {
+    SASLed.off();
+  }
   digitalWrite(RCSLED,ControlStatus(AGRCS));
 }
 
@@ -13,9 +17,6 @@ void initLEDS() {
 //  pinMode(RLED,OUTPUT);
 //  digitalWrite(RLED,HIGH);
   
-  pinMode(SASLED,OUTPUT);
-  digitalWrite(SASLED,HIGH);
-  
   pinMode(RCSLED,OUTPUT);
   digitalWrite(RCSLED,HIGH);
 //  
@@ -27,7 +28,6 @@ void LEDSAllOff() {
 //  digitalWrite(GLED,LOW);
 //  digitalWrite(YLED,LOW);
 //  digitalWrite(RLED,LOW);
-  digitalWrite(SASLED,LOW);
   digitalWrite(RCSLED,LOW);
 //  digitalWrite(CG1LED,LOW);
 }

@@ -1,4 +1,6 @@
-int input() {
+#include "Led.h"
+
+int input(Led warning_led) {
   int returnValue = -1;
   now = millis();
 
@@ -7,10 +9,10 @@ int input() {
     returnValue = id;
     switch(id) {
     case 0: //Handshake packet
-      Handshake();
+      Handshake(warning_led);
       break;
     case 1:
-      Indicators();
+      Indicators(warning_led);
       break;
     }
 
