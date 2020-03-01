@@ -7,7 +7,7 @@
 
 class JoystickTx {
   
-  private:
+  protected:
     JoystickAxis axisX;
     JoystickAxis axisY;
     Button button1;
