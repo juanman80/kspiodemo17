@@ -186,9 +186,10 @@ ControlPacket CPacket;
 
 JoystickRx joyRx;
 JoystickTx joyTx;
-Potentiometer speedPot;
 Led SASled;
+Led RCSled;
 LiquidCrystal lcd(53, 52, 51, 50, 49, 48);
+Potentiometer speedPot;
 
 unsigned long deadtime, deadtimeOld, controlTime, controlTimeOld;
 unsigned long now;
@@ -200,7 +201,6 @@ byte id;
 void setup() {
   Serial.begin(38400);
 
-  initLEDS();
   InitLedMatrix();
   InitTxPackets();
   controlsInit();
@@ -208,6 +208,7 @@ void setup() {
 
   speedPot.init(SPEED_POTENCIOMETER_PIN);
   SASled.init(SASLED);
+  RCSled.init(RCSLED);
   joyTx.init(JOYSTICK_TX_AXIS_X, JOYSTICK_TX_AXIS_Y, JOYSTICK_TX_BUTTON);
   joyRx.init(JOYSTICK_RX_AXIS_X, JOYSTICK_RX_AXIS_Y, JOYSTICK_RX_AXIS_Z, JOYSTICK_RX_BUTTON);
 
@@ -217,8 +218,8 @@ void setup() {
 void loop()
 {
   input(SASled);
-//  Debug();
-//  fuelLedMatrix();
+  //  Debug();
+  //  fuelLedMatrix();
   // getJoystickTx();
 
   if( joyRx.isPressed() ){

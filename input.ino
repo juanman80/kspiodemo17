@@ -12,7 +12,7 @@ int input(Led warning_led) {
       Handshake(warning_led);
       break;
     case 1:
-      Indicators(warning_led);
+      Indicators();
       break;
     }
 
